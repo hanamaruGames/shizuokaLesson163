@@ -34,7 +34,7 @@ PlayScene::PlayScene()
 	assert(csv->GetLines() > 0);
 	for (int i = 1; i < csv->GetLines(); i++) { // ‚Ps‚¸‚Â“Ç‚Þ
 		std::string str = csv->GetString(i, 0); // PLAYER‚ª“ü‚é
-		Object3D* obj;
+		Object3D* obj = nullptr;
 		if (str == "PLAYER") {
 			obj = Instantiate<Player>();
 		}
