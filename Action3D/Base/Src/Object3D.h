@@ -34,6 +34,12 @@ public:
 	VECTOR3 Position() {
 		return transform.position;
 	};
+	VECTOR3 Rotation() {
+		return transform.rotation;
+	};
+	VECTOR3 Scale() {
+		return transform.scale;
+	};
 
 	void SetPosition(VECTOR3 pos);
 	void SetPosition(float x, float y, float z);

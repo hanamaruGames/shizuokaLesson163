@@ -8,8 +8,6 @@ namespace { // このcpp以外では使えない
 	static const float JumpPower = 0.3f;
 	static const float RotationSpeed = 3.0f; // 回転速度(度)
 	static const float MoveSpeed = 0.1f;
-	static const VECTOR3 CameraPos = VECTOR3(0, 2, -5);
-	static const VECTOR3 LookPos = VECTOR3(0, 1, 5);
 };
 
 Player::Player()
@@ -61,22 +59,6 @@ void Player::Update()
 	ImGui::InputInt("State", (int*)(&state));
 	ImGui::InputFloat("SP", &speedY);
 	ImGui::End();
-
-	{
-		// プレイヤーの行列を求める
-		MATRIX4X4 rotY = XMMatrixRotationY(transform.rotation.y);
-		MATRIX4X4 trans = XMMatrixTranslation(
-			transform.position.x, 0.0f, transform.position.z);
-		MATRIX4X4 m = rotY * trans;
-		// プレイヤーが回転・移動してない時のカメラ位置に
-		// プレイヤーの回転・移動行列を掛けると、
-		VECTOR3 cameraPos = CameraPos * m;
-		VECTOR3 lookPos = LookPos * m;
-		GameDevice()->m_mView = XMMatrixLookAtLH(
-			cameraPos,
-			lookPos,
-			VECTOR3(0, 1, 0));
-	}
 
 	// Dancerにめり込まないようにする
 	// 自分の座標は、transform.position

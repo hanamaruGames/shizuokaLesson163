@@ -21,6 +21,8 @@ Dancer::~Dancer()
 
 void Dancer::Update()
 {
+	// 自分の視野に入ったら、プレイヤーに向かってくる
+
 }
 
 SphereCollider Dancer::Collider()

@@ -6,6 +6,7 @@
 #include <fstream>
 #include "CsvReader.h"
 #include <assert.h>
+#include "Camera.h"
 
 PlayScene::PlayScene()
 {
@@ -55,6 +56,7 @@ PlayScene::PlayScene()
 		float z = csv->GetFloat(i, 3);
 		obj->SetPosition(x, y, z);
 	}
+	Instantiate<Camera>();
 	//Instantiate<Ground>();
 	//Door * door = Instantiate<Door>();
 	//door->SetPosition(40, 0, -40);
