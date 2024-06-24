@@ -13,7 +13,7 @@ public:
 		rotation = VECTOR3(0, 0, 0);
 		scale = VECTOR3(1, 1, 1);
 	}
-	MATRIX4X4 matrix() {
+	const MATRIX4X4 matrix() {
 		MATRIX4X4 scaleM = XMMatrixScaling(
 			scale.x, scale.y, scale.z);
 		MATRIX4X4 rotX = XMMatrixRotationX(
@@ -45,27 +45,52 @@ public:
 	virtual void Update() override;
 	virtual void Draw() override;
 
-	VECTOR3 Position() {
+	const VECTOR3 Position() {
 		return transform.position;
 	};
-	VECTOR3 Rotation() {
+	const VECTOR3 Rotation() {
 		return transform.rotation;
 	};
-	VECTOR3 Scale() {
+	const VECTOR3 Scale() {
 		return transform.scale;
 	};
 
-	void SetPosition(VECTOR3 pos);
+	void SetPosition(const VECTOR3& pos);
 	void SetPosition(float x, float y, float z);
-	void SetRotation(VECTOR3 pos);
+	void SetRotation(const VECTOR3& pos);
 	void SetRotation(float x, float y, float z);
-	void SetScale(VECTOR3 pos);
+	void SetScale(const VECTOR3& pos);
 	void SetScale(float x, float y, float z);
 
 	virtual SphereCollider Collider();
 
-	virtual bool HitSphereToMesh(const VECTOR3& center, float radius, VECTOR3* push = nullptr);
+	/// <summary>
+	/// 球とメッシュの当たり判定をする
+	/// 当たった場合にのみ、pushに押し返す場所を返す
+	/// </summary>
+	/// <param name="sphere">球体</param>
+	/// <param name="push">押し返す場所を格納する場所</param>
+	/// <returns>当たった場合にtrue</returns>
+	virtual bool HitSphereToMesh(const SphereCollider& sphere, VECTOR3* push = nullptr);
+
+	/// <summary>
+	/// 直線とメッシュの当たり判定をする
+	/// 当たった場合は、当たった座標を返す
+	/// </summary>
+	/// <param name="from">直線の始点</param>
+	/// <param name="to">直線の終点</param>
+	/// <param name="hit">交点を格納する場所</param>
+	/// <returns>当たった場合にtrue</returns>
 	virtual bool HitLineToMesh(const VECTOR3& from, const VECTOR3& to, VECTOR3* hit = nullptr);
+
+	/// <summary>
+	/// 球と球の当たり判定をする
+	/// 自分の球は、Collider()で取得する
+	/// </summary>
+	/// <param name="target">相手の球</param>
+	/// <param name="withY">falseにするとYの座標差を無視する</param>
+	/// <returns>重なり量</returns>
+	virtual float HitSphereToSphere(const SphereCollider& target, bool withY=true);
 protected:
 	CFbxMesh* mesh;
 	MeshCollider* meshCol;
