@@ -1,5 +1,6 @@
 #include "MeshCollider.h"
 #include "ResourceManager.h"
+#include "Object3D.h"
 
 MeshCollider::MeshCollider()
 {

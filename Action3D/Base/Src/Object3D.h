@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "FbxMesh.h"
+#include "MeshCollider.h"
 
 class Transform {
 public:
@@ -11,6 +12,19 @@ public:
 		position = VECTOR3(0, 0, 0);
 		rotation = VECTOR3(0, 0, 0);
 		scale = VECTOR3(1, 1, 1);
+	}
+	MATRIX4X4 matrix() {
+		MATRIX4X4 scaleM = XMMatrixScaling(
+			scale.x, scale.y, scale.z);
+		MATRIX4X4 rotX = XMMatrixRotationX(
+			rotation.x);
+		MATRIX4X4 rotY = XMMatrixRotationY(
+			rotation.y);
+		MATRIX4X4 rotZ = XMMatrixRotationZ(
+			rotation.z);
+		MATRIX4X4 trans = XMMatrixTranslation(
+			position.x, position.y, position.z);
+		return scaleM * rotZ * rotX * rotY * trans;
 	}
 };
 
@@ -49,7 +63,11 @@ public:
 	void SetScale(float x, float y, float z);
 
 	virtual SphereCollider Collider();
+
+	virtual bool HitSphereToMesh(const VECTOR3& center, float radius, VECTOR3* push = nullptr);
+	virtual bool HitLineToMesh(const VECTOR3& from, const VECTOR3& to, VECTOR3* hit = nullptr);
 protected:
 	CFbxMesh* mesh;
+	MeshCollider* meshCol;
 	Transform transform;
 };

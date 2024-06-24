@@ -1,14 +1,19 @@
 #include "Object3D.h"
+#include "MeshCollider.h"
 
 Object3D::Object3D()
 {
 	mesh = nullptr;
+	meshCol = nullptr;
 }
 
 Object3D::~Object3D()
 {
 	if (mesh != nullptr) {
 		delete mesh;
+	}
+	if (meshCol != nullptr) {
+		delete meshCol;
 	}
 }
 
@@ -18,20 +23,7 @@ void Object3D::Update()
 
 void Object3D::Draw()
 {
-	MATRIX4X4 scale = XMMatrixScaling(
-		transform.scale.x, transform.scale.y,
-		transform.scale.z);
-	MATRIX4X4 rotX = XMMatrixRotationX(
-						transform.rotation.x);
-	MATRIX4X4 rotY = XMMatrixRotationY(
-						transform.rotation.y);
-	MATRIX4X4 rotZ = XMMatrixRotationZ(
-						transform.rotation.z);
-	MATRIX4X4 trans = XMMatrixTranslation(
-		transform.position.x, transform.position.y,
-		transform.position.z);
-	MATRIX4X4 m = scale * rotZ * rotX * rotY * trans;
-	mesh->Render(m);
+	mesh->Render(transform.matrix());
 }
 
 void Object3D::SetPosition(VECTOR3 pos)
@@ -68,3 +60,50 @@ SphereCollider Object3D::Collider()
 {
 	return SphereCollider();
 }
+
+bool Object3D::HitSphereToMesh(const VECTOR3& center, float radius, VECTOR3* push)
+{
+	if (meshCol == nullptr)
+		return false;
+	MATRIX4X4 mat = transform.matrix();
+	std::list<MeshCollider::CollInfo> meshes = meshCol->CheckCollisionSphereList(mat, center, radius);
+	if (meshes.size() == 0)
+		return false;
+	if (push != nullptr) { // 座標が必要なのであれば
+		VECTOR3 pushVec = VECTOR3(0, 0, 0); // 最終的に押すベクトル
+		for (const MeshCollider::CollInfo& m : meshes) { // 当たっているすべてのポリゴンで
+			VECTOR3 move = center - m.hitPosition;
+			float len = move.Length(); // 当たった点から中心への距離
+			move = move * ((radius - len) / len);
+			VECTOR3 push = m.normal * Dot(move, m.normal); // 押し返したいベクトル
+			// 今のpushVecと合成する
+			VECTOR3 pushVecNorm = XMVector3Normalize(pushVec); // 合成済みベクトルの向き
+			float dot = Dot(push, pushVecNorm);	// その成分の長さ
+			if (dot < pushVec.Length()) {
+				pushVec += push - pushVecNorm * dot; // その成分を減らしていい
+			}
+			else {
+				pushVec = push;
+			}
+		}
+		*push = pushVec;
+	}
+	return true;
+}
+
+bool Object3D::HitLineToMesh(const VECTOR3& from, const VECTOR3& to, VECTOR3* hit)
+{
+	if (meshCol == nullptr)
+		return false;
+	MATRIX4X4 mat = transform.matrix();
+	MeshCollider::CollInfo coll;
+	bool ret = meshCol->CheckCollisionLine(mat, from, to, &coll);
+	if (ret) {
+		if (hit != nullptr) {
+			*hit = coll.hitPosition;
+		}
+		return true;
+	}
+	return false;
+}
+

@@ -1,7 +1,11 @@
 #pragma once
 
 #include <vector>
-#include "Object3D.h"
+#include <list>
+#include <string>
+#include "MyMath.h"
+class Object3D;
+class CFbxMesh;
 
 /// <summary>
 /// モデルデータとの当たり判定を行います
