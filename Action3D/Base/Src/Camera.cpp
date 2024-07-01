@@ -52,12 +52,31 @@ void Camera::Update()
 		transform.position = position * m;
 		lookPosition = look * m;
 	}
+	// カメラが壁にめり込まないようにする
+	VECTOR3 start = player->Position() + VECTOR3(0, 1.5f, 0);
+	VECTOR3 end = transform.position;
+	// startからendに向かうベクトルを作り、長さに0.2を加える
+	VECTOR3 camVec = end - start;
+	camVec = XMVector3Normalize(camVec) * (camVec.Length() + 0.2f);
+	end = start + camVec;
+
+	std::list<Object3D*> grounds = ObjectManager::FindGameObjectsWithTag<Object3D>("STAGEOBJ");
+	for (Object3D* g : grounds)
+	{
+		VECTOR3 hit;
+		if (g->HitLineToMesh(start, end, &hit)) {
+			end = hit;
+		}
+	}
+	//endから0.2手前に置く;
+	transform.position = XMVector3Normalize(camVec) * ((end - start).Length() - 0.2f)
+																				+ start;
 }
 
 void Camera::Draw()
 {
 	GameDevice()->m_mView = XMMatrixLookAtLH(
-		transform.position,
-		lookPosition,
+		transform.position, // カメラ座標
+		lookPosition, // 注視点
 		VECTOR3(0, 1, 0));
 }

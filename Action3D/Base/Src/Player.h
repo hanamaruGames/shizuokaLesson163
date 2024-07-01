@@ -8,6 +8,8 @@ public:
 	Player();
 	~Player();
 	void Update() override;
+	void Draw() override;
+
 	SphereCollider Collider() override;
 
 private:
@@ -17,6 +19,9 @@ private:
 	enum AnimID {
 		aIdle = 0,
 		aRun = 1,
+		aAttack1,
+		aAttack2,
+		aAttack3,
 	};
 
 	enum State {

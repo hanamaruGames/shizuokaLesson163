@@ -112,13 +112,13 @@ void ObjectManager::Push(GameObject* obj)
 	{
 		UpdateObject node;
 		node.object = obj;
-		updateObjects.emplace_back(node);
+		updateObjects.push_back(node);
 		needSortUpdate = true;
 	}
 	{
 		DrawObject node;
 		node.object = obj;
-		drawObjects.emplace_back(node);
+		drawObjects.push_back(node);
 		needSortDraw = true;
 	}
 }

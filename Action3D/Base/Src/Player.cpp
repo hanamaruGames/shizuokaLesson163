@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "../Libs/Imgui/imgui.h"
 #include "Dancer.h"
+#include "Door.h"
 
 namespace { // このcpp以外では使えない
 	static const float Gravity = 0.025f; // 重力加速度(正の値)
@@ -18,6 +19,9 @@ Player::Player()
 	mesh->Load("Data/Player/PlayerChara.mesh");
 	mesh->LoadAnimation(aIdle, "Data/Player/Idle.anmx", true);
 	mesh->LoadAnimation(aRun, "Data/Player/Run.anmx", true);
+	mesh->LoadAnimation(aAttack1, "Data/Player/attack1.anmx", false);
+	mesh->LoadAnimation(aAttack2, "Data/Player/attack2.anmx", false);
+	mesh->LoadAnimation(aAttack3, "Data/Player/attack3.anmx", false);
 	animator->SetModel(mesh); // このモデルでアニメーションする
 	animator->Play(aRun);
 	animator->SetPlaySpeed(1.0f);
@@ -88,6 +92,41 @@ void Player::Update()
 			transform.position += pushVec * pushLen;
 		}
 	}
+	std::list<Object3D*> doors = ObjectManager::FindGameObjectsWithTag<Object3D>("STAGEOBJ"); // ドアのオブジェクトを見つける
+#if 0
+	int size = doors.size(); // 要素数が手に入る
+//	for (std::list<Door*>::iterator itr = doors.begin(); itr != doors.end(); itr++) {
+	for (auto itr = doors.begin(); itr != doors.end(); itr++) {
+		Door* door = *itr;
+	}
+#endif
+#if 1
+	for (auto door : doors) {
+		SphereCollider coll;
+		coll.center = transform.position + VECTOR3(0, 1.0f, 0); // 自分の球を作る
+		coll.radius = 0.5;
+		VECTOR3 push;
+		if (door->HitSphereToMesh(coll, &push)) {
+			transform.position += push;
+		}
+	}
+#endif
+}
+
+void Player::Draw()
+{
+	Object3D::Draw(); // 継承元の関数を呼ぶ
+
+//	MATRIX4X4 tip = XMMatrixRotationRollPitchYawFromVector(VECTOR3(-33, 82, 0) * DegToRad);
+//	VECTOR3 tipPos = VECTOR3(0, 0, 1.2f) * tip;
+	VECTOR3 tipPos = VECTOR3(0.9966, 0.6536, 0.140);
+	MATRIX4X4 mat = transform.matrix(); // 世界（ワールド）の中で、プレイヤーの位置と向き
+	MATRIX4X4 bone = mesh->GetFrameMatrices(34); // プレイヤーの原点からの手首の位置(34は手首)
+	VECTOR3 start = VECTOR3(0, 0, 0) * bone * mat;
+	VECTOR3 end = tipPos * bone * mat;
+
+	CSprite spr;
+	spr.DrawLine3D(start, end, RGB(255, 0, 0));
 }
 
 SphereCollider Player::Collider()
@@ -134,6 +173,10 @@ void Player::UpdateOnGround()
 		speedY = JumpPower;
 		state = sJump;
 	}
+	if (GameDevice()->m_pDI->CheckKey(KD_TRG, DIK_N)) { // 攻撃ボタン
+		animator->MergePlay(aAttack1);
+		state = sAttack;
+	}
 }
 
 void Player::UpdateJump()
@@ -149,4 +192,22 @@ void Player::UpdateJump()
 
 void Player::UpdateAttack()
 {
+	// 敵に攻撃を当てる
+	std::list<Dancer*> dancers = ObjectManager::FindGameObjects<Dancer>();
+
+	VECTOR3 tipPos = VECTOR3(0.9966, 0.6536, 0.140);
+	MATRIX4X4 mat = transform.matrix(); // 世界（ワールド）の中で、プレイヤーの位置と向き
+	MATRIX4X4 bone = mesh->GetFrameMatrices(34); // プレイヤーの原点からの手首の位置(34は手首)
+	VECTOR3 start = VECTOR3(0, 0, 0) * bone * mat;
+	VECTOR3 end = tipPos * bone * mat;
+
+	for (Dancer* d : dancers) {
+		VECTOR3 hit;
+		if (d->HitLineToMesh(start, end, &hit)) {
+			d->AddDamage(10, transform.position); // 敵に当てた
+		}
+	}
+	if (animator->Finished()) {
+		state = sOnGround;
+	}
 }
