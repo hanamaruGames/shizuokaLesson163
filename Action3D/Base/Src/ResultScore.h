@@ -7,4 +7,7 @@ public:
 	~ResultScore();
 	void Update() override;
 	void Draw() override;
+private:
+	int viewScore; // 表示するスコア
+	float timer;
 };
