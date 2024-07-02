@@ -93,13 +93,6 @@ void Player::Update()
 		}
 	}
 	std::list<Object3D*> doors = ObjectManager::FindGameObjectsWithTag<Object3D>("STAGEOBJ"); // ドアのオブジェクトを見つける
-#if 0
-	int size = doors.size(); // 要素数が手に入る
-//	for (std::list<Door*>::iterator itr = doors.begin(); itr != doors.end(); itr++) {
-	for (auto itr = doors.begin(); itr != doors.end(); itr++) {
-		Door* door = *itr;
-	}
-#endif
 #if 1
 	for (auto door : doors) {
 		SphereCollider coll;

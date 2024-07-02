@@ -309,9 +309,13 @@
     <ClInclude Include="Src\PlayScene.h" />
     <ClInclude Include="Src\resource.h" />
     <ClInclude Include="Src\ResourceManager.h" />
+    <ClInclude Include="Src\ResultScene.h" />
+    <ClInclude Include="Src\ResultScore.h" />
     <ClInclude Include="Src\SceneBase.h" />
     <ClInclude Include="Src\SceneFactory.h" />
     <ClInclude Include="Src\SceneManager.h" />
+    <ClInclude Include="Src\Score.h" />
+    <ClInclude Include="Src\ScoreDraw.h" />
     <ClInclude Include="Src\Shader.h" />
     <ClInclude Include="Src\Sprite3D.h" />
     <ClInclude Include="Src\TitleScene.h" />
@@ -347,9 +351,13 @@
     <ClCompile Include="Src\Player.cpp" />
     <ClCompile Include="Src\PlayScene.cpp" />
     <ClCompile Include="Src\ResourceManager.cpp" />
+    <ClCompile Include="Src\ResultScene.cpp" />
+    <ClCompile Include="Src\ResultScore.cpp" />
     <ClCompile Include="Src\SceneBase.cpp" />
     <ClCompile Include="Src\SceneFactory.cpp" />
     <ClCompile Include="Src\SceneManager.cpp" />
+    <ClCompile Include="Src\Score.cpp" />
+    <ClCompile Include="Src\ScoreDraw.cpp" />
     <ClCompile Include="Src\Shader.cpp" />
     <ClCompile Include="Src\Sprite3D.cpp" />
     <ClCompile Include="Src\TitleScene.cpp" />

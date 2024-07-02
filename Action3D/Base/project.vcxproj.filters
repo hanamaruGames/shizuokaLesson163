@@ -54,6 +54,9 @@
     <Filter Include="ソース ファイル\08_PlayScene">
       <UniqueIdentifier>{54c21df3-e977-4cb1-b703-924c7617f825}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\09_ResultScene">
+      <UniqueIdentifier>{4d53d914-e8e9-457d-90dc-2d3af8e24ed0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Hlsl\DisplaceSkinMesh.hlsli">
@@ -291,6 +294,18 @@
     <ClInclude Include="Src\Camera.h">
       <Filter>ソース ファイル\08_PlayScene</Filter>
     </ClInclude>
+    <ClInclude Include="Src\ResultScene.h">
+      <Filter>ソース ファイル\09_ResultScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Score.h">
+      <Filter>ソース ファイル\08_PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ScoreDraw.h">
+      <Filter>ソース ファイル\08_PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ResultScore.h">
+      <Filter>ソース ファイル\09_ResultScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Main.cpp">
@@ -400,6 +415,18 @@
     </ClCompile>
     <ClCompile Include="Src\Camera.cpp">
       <Filter>ソース ファイル\08_PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ResultScene.cpp">
+      <Filter>ソース ファイル\09_ResultScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Score.cpp">
+      <Filter>ソース ファイル\08_PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ScoreDraw.cpp">
+      <Filter>ソース ファイル\08_PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ResultScore.cpp">
+      <Filter>ソース ファイル\09_ResultScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

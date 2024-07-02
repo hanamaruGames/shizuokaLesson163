@@ -7,6 +7,8 @@
 #include "CsvReader.h"
 #include <assert.h>
 #include "Camera.h"
+#include "Score.h"
+#include "ScoreDraw.h"
 
 PlayScene::PlayScene()
 {
@@ -72,6 +74,14 @@ PlayScene::PlayScene()
 	//	Dancer* d = Instantiate<Dancer>();
 	//	d->SetPosition(p);
 	//}
+
+	Score* sc = ObjectManager::FindGameObject<Score>();
+	if (sc == nullptr) {
+		sc = Instantiate<Score>();
+		sc->DontDestroyMe(); // ƒV[ƒ“‚ªØ‚è‘Ö‚í‚Á‚Ä‚àÁ‚¦‚È‚¢
+	}
+	sc->Clear();
+	Instantiate<ScoreDraw>();
 }
 
 PlayScene::~PlayScene()
@@ -80,6 +90,14 @@ PlayScene::~PlayScene()
 
 void PlayScene::Update()
 {
+	// Dancer‚ª‘S–Å‚µ‚½‚çTitleScene
+	std::list<Dancer*> dancers = ObjectManager::FindGameObjects<Dancer>();
+	if (dancers.size() == 0) {
+		SceneManager::ChangeScene("TitleScene");
+	}
+	if (GameDevice()->m_pDI->CheckKey(KD_TRG, DIK_R)) {
+		SceneManager::ChangeScene("ResultScene");
+	}
 	if (GameDevice()->m_pDI->CheckKey(KD_TRG, DIK_T)) {
 		SceneManager::ChangeScene("TitleScene");
 	}
