@@ -1,6 +1,11 @@
 #include "PlayScene.h"
+#include "BG.h"
+#include "ScriptExec.h"
+
 PlayScene::PlayScene()
 {
+	Instantiate<BG>();
+	Instantiate<ScriptExec>();
 }
 
 PlayScene::~PlayScene()

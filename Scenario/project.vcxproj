@@ -283,7 +283,9 @@
     <ClInclude Include="Libs\Imgui\imstb_textedit.h" />
     <ClInclude Include="Libs\Imgui\imstb_truetype.h" />
     <ClInclude Include="Src\BBox.h" />
+    <ClInclude Include="Src\BG.h" />
     <ClInclude Include="Src\CapsuleCollider.h" />
+    <ClInclude Include="Src\Chara.h" />
     <ClInclude Include="Src\Collision.h" />
     <ClInclude Include="Src\CsvReader.h" />
     <ClInclude Include="Src\DInput.h" />
@@ -295,6 +297,7 @@
     <ClInclude Include="Src\Macro.h" />
     <ClInclude Include="Src\Main.h" />
     <ClInclude Include="Src\MainControl.h" />
+    <ClInclude Include="Src\Message.h" />
     <ClInclude Include="Src\MyImgui.h" />
     <ClInclude Include="Src\MyMath.h" />
     <ClInclude Include="Src\ObjectManager.h" />
@@ -304,6 +307,7 @@
     <ClInclude Include="Src\SceneBase.h" />
     <ClInclude Include="Src\SceneFactory.h" />
     <ClInclude Include="Src\SceneManager.h" />
+    <ClInclude Include="Src\ScriptExec.h" />
     <ClInclude Include="Src\Shader.h" />
     <ClInclude Include="Src\Sprite3D.h" />
     <ClInclude Include="Src\TitleScene.h" />
@@ -317,6 +321,8 @@
     <ClCompile Include="Libs\Imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="Libs\Imgui\imgui_widgets.cpp" />
     <ClCompile Include="Src\BBox.cpp" />
+    <ClCompile Include="Src\BG.cpp" />
+    <ClCompile Include="Src\Chara.cpp" />
     <ClCompile Include="Src\Collision.cpp" />
     <ClCompile Include="Src\CsvReader.cpp" />
     <ClCompile Include="Src\DInput.cpp" />
@@ -326,6 +332,7 @@
     <ClCompile Include="Src\GameMain.cpp" />
     <ClCompile Include="Src\Main.cpp" />
     <ClCompile Include="Src\MainControl.cpp" />
+    <ClCompile Include="Src\Message.cpp" />
     <ClCompile Include="Src\MyImgui.cpp" />
     <ClCompile Include="Src\MyMath.cpp" />
     <ClCompile Include="Src\ObjectManager.cpp" />
@@ -334,6 +341,7 @@
     <ClCompile Include="Src\SceneBase.cpp" />
     <ClCompile Include="Src\SceneFactory.cpp" />
     <ClCompile Include="Src\SceneManager.cpp" />
+    <ClCompile Include="Src\ScriptExec.cpp" />
     <ClCompile Include="Src\Shader.cpp" />
     <ClCompile Include="Src\Sprite3D.cpp" />
     <ClCompile Include="Src\TitleScene.cpp" />
