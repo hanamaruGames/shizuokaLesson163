@@ -19,6 +19,12 @@ ScriptExec::~ScriptExec()
 
 void ScriptExec::Update()
 {
+	//waitTimer>0‚È‚ç‚ÎˆÈ‰º‚ð‚â‚ç‚È‚¢
+	if (waitTimer > 0) {
+		waitTimer -= SceneManager::DeltaTime();
+		return;
+	}
+
 	std::string command = csv->GetString(readLine, 0);
 	if (command.substr(0, 2) == "//") {
 	} else if (command == "CHARA") {
@@ -37,6 +43,9 @@ void ScriptExec::Update()
 	}
 	else if (command == "MESSAGE") {
 		message->SetText(csv->GetString(readLine, 2));
+	}
+	else if (command == "WAIT") {
+		waitTimer = csv->GetFloat(readLine, 5);
 	}
 	else if (command == "END") {
 		return;

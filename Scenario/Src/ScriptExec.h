@@ -17,4 +17,6 @@ private:
 
 	Chara* charas[2];
 	Message* message;
+
+	float waitTimer;
 };

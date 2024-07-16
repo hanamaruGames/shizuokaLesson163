@@ -14,6 +14,8 @@ Message::~Message()
 void Message::Update()
 {
 	viewTimer += SceneManager::DeltaTime();
+	if (GameDevice()->m_pDI->CheckKey(KD_DAT, DIK_SPACE))
+		viewTimer += 0.3f;
 }
 
 void Message::Draw()
@@ -26,9 +28,15 @@ void Message::Draw()
 
 	// テキスト
 	if (text != "") {
-		int t = (viewTimer / 0.5f); // 表示する文字数
-		GameDevice()->m_pFont->Draw(200, 600, letters[0].c_str(), 32, RGB(255, 255, 255));
-		GameDevice()->m_pFont->Draw(218, 600, letters[1].c_str(), 32, RGB(255, 255, 255));
+		int t = (viewTimer / 0.3f); // 表示する文字数
+		if (t >= letters.size())
+			t = letters.size();
+		int x = 200;
+		for (int i = 0; i < t; i++) {
+			GameDevice()->m_pFont->Draw(x, 600, letters[i].c_str(), 
+						32, RGB(255, 255, 255));
+			x += letters[i].size() * 18;
+		}
 	}
 }
 

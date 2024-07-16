@@ -1,6 +1,8 @@
 //コマンド,ID,ファイル名,X座標,Y座標,時間
 CHARA,0,girl/josei_01_b.png,400,100,
 CHARA,1,boy/dansei_01_b.png,200,100,
+WAIT,,,,,0.5
 CHARAMOVE,0,,600,100,1.2
+WAIT,,,,,1.2
 MESSAGE,,Hello、おはよう,,,
 END,,,,,
