@@ -11,6 +11,9 @@ ScriptExec::ScriptExec()
 	charas[0] = Instantiate<Chara>();
 	charas[1] = Instantiate<Chara>();
 	message = Instantiate<Message>();
+
+	waitTimer = 0;
+	waitMessage = false;
 }
 
 ScriptExec::~ScriptExec()
@@ -24,7 +27,12 @@ void ScriptExec::Update()
 		waitTimer -= SceneManager::DeltaTime();
 		return;
 	}
-
+	if (waitMessage) {
+		if (message->IsFinish()) {
+			waitMessage = false;
+		}
+		return;
+	}
 	std::string command = csv->GetString(readLine, 0);
 	if (command.substr(0, 2) == "//") {
 	} else if (command == "CHARA") {
@@ -43,6 +51,7 @@ void ScriptExec::Update()
 	}
 	else if (command == "MESSAGE") {
 		message->SetText(csv->GetString(readLine, 2));
+		waitMessage = true;
 	}
 	else if (command == "WAIT") {
 		waitTimer = csv->GetFloat(readLine, 5);

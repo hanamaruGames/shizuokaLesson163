@@ -19,4 +19,5 @@ private:
 	Message* message;
 
 	float waitTimer;
+	bool waitMessage;
 };
