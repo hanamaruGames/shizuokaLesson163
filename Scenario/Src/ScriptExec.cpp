@@ -1,4 +1,5 @@
 #include "ScriptExec.h"
+#include "Fader.h"
 
 ScriptExec::ScriptExec()
 {
@@ -55,6 +56,14 @@ void ScriptExec::Update()
 	}
 	else if (command == "WAIT") {
 		waitTimer = csv->GetFloat(readLine, 5);
+	}
+	else if (command == "FADEIN") {
+		Fader* fader = ObjectManager::FindGameObject<Fader>();
+		fader->FadeIn(csv->GetFloat(readLine, 5));
+	}
+	else if (command == "FADEOUT") {
+		Fader* fader = ObjectManager::FindGameObject<Fader>();
+		fader->FadeOut(csv->GetFloat(readLine, 5));
 	}
 	else if (command == "END") {
 		return;

@@ -72,13 +72,13 @@ CsvReader::~CsvReader()
 
 unsigned int CsvReader::GetLines()
 {
-	return all.size();
+	return (unsigned int)all.size();
 }
 
 unsigned int CsvReader::GetColumns(unsigned int line)
 {
 	assert(line < GetLines());
-	return all[line].record.size();
+	return (unsigned int)all[line].record.size();
 }
 
 std::string CsvReader::GetString(unsigned int line, unsigned int column)

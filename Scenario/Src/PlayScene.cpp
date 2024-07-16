@@ -1,9 +1,12 @@
 #include "PlayScene.h"
 #include "BG.h"
 #include "ScriptExec.h"
+#include "Fader.h"
 
 PlayScene::PlayScene()
 {
+	Fader* f = Instantiate<Fader>();
+//	f->FadeIn(2.0f); // 始まる時はフェードインする
 	Instantiate<BG>();
 	Instantiate<ScriptExec>();
 }

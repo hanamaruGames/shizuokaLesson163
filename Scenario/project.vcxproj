@@ -291,6 +291,7 @@
     <ClInclude Include="Src\DInput.h" />
     <ClInclude Include="Src\Direct3D.h" />
     <ClInclude Include="Src\Displace.h" />
+    <ClInclude Include="Src\Fader.h" />
     <ClInclude Include="Src\FbxMesh.h" />
     <ClInclude Include="Src\GameMain.h" />
     <ClInclude Include="Src\GameObject.h" />
@@ -328,6 +329,7 @@
     <ClCompile Include="Src\DInput.cpp" />
     <ClCompile Include="Src\Direct3D.cpp" />
     <ClCompile Include="Src\Displace.cpp" />
+    <ClCompile Include="Src\Fader.cpp" />
     <ClCompile Include="Src\FbxMesh.cpp" />
     <ClCompile Include="Src\GameMain.cpp" />
     <ClCompile Include="Src\Main.cpp" />

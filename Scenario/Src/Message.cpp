@@ -6,6 +6,8 @@ Message::Message()
 	frame = new CSpriteImage(GameDevice()->m_pShader,
 		"Assets/UI/box_blue_name.png");
 	state = 2;
+	viewTimer = 0.0f;
+	nextCounter = 0;
 }
 
 Message::~Message()
@@ -40,12 +42,12 @@ void Message::Draw()
 	if (text != "" && state < 2) {
 		int t = (viewTimer / 0.3f); // •\Ž¦‚·‚é•¶Žš”
 		if (t >= letters.size())
-			t = letters.size();
+			t = (int)letters.size();
 		int x = 200;
 		for (int i = 0; i < t; i++) {
 			GameDevice()->m_pFont->Draw(x, 600, letters[i].c_str(), 
 						32, RGB(255, 255, 255));
-			x += letters[i].size() * 18;
+			x += (int)letters[i].size() * 18;
 		}
 	}
 	if (state == 1) {
