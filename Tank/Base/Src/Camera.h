@@ -7,4 +7,6 @@ public:
 	~Camera();
 	void Update() override;
 	void Draw() override;
+private:
+	VECTOR3 lookPosition;
 };

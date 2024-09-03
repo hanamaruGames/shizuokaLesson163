@@ -2,11 +2,13 @@
 #include <assert.h>
 #include "Camera.h"
 #include "Ground.h"
+#include "Tank.h"
 
 PlayScene::PlayScene()
 {
-	new Camera();
 	new Ground();
+	new Tank();
+	new Camera();
 }
 
 PlayScene::~PlayScene()

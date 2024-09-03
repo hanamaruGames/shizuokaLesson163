@@ -285,6 +285,9 @@
     <ClInclude Include="Src\ResultScene.h">
       <Filter>ソース ファイル\09_ResultScene</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Tank.h">
+      <Filter>ソース ファイル\08_PlayScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Main.cpp">
@@ -384,6 +387,9 @@
       <Filter>ソース ファイル\09_ResultScene</Filter>
     </ClCompile>
     <ClCompile Include="Src\Object3D.cpp">
+      <Filter>ソース ファイル\08_PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Tank.cpp">
       <Filter>ソース ファイル\08_PlayScene</Filter>
     </ClCompile>
   </ItemGroup>

@@ -311,6 +311,7 @@
     <ClInclude Include="Src\SceneManager.h" />
     <ClInclude Include="Src\Shader.h" />
     <ClInclude Include="Src\Sprite3D.h" />
+    <ClInclude Include="Src\Tank.h" />
     <ClInclude Include="Src\TitleScene.h" />
     <ClInclude Include="Src\XAudio.h" />
   </ItemGroup>
@@ -346,6 +347,7 @@
     <ClCompile Include="Src\SceneManager.cpp" />
     <ClCompile Include="Src\Shader.cpp" />
     <ClCompile Include="Src\Sprite3D.cpp" />
+    <ClCompile Include="Src\Tank.cpp" />
     <ClCompile Include="Src\TitleScene.cpp" />
     <ClCompile Include="Src\XAudio.cpp" />
   </ItemGroup>
