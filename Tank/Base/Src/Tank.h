@@ -1,6 +1,15 @@
 #pragma once
 #include "Object3D.h"
 
+class TankGun : public Object3D {
+public:
+	TankGun(Object3D* parentModel);
+	~TankGun();
+	void Update() override;
+private:
+	Object3D* parent;
+};
+
 class TankTower : public Object3D {
 public:
 	TankTower(Object3D * parentModel);
