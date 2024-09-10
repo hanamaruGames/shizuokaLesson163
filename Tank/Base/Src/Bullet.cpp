@@ -6,7 +6,8 @@ Bullet::Bullet(VECTOR3 from, VECTOR3 direction)
 	velocity = direction;
 
 	mesh = new CFbxMesh();
-	mesh->Load("Data/Tank/tank_gun_001.mesh");
+	mesh->Load("Data/Tank/bullet.mesh");
+	transform.scale = VECTOR3(0.5, 0.5, 0.5);
 }
 
 Bullet::~Bullet()
@@ -15,5 +16,8 @@ Bullet::~Bullet()
 
 void Bullet::Update()
 {
+	VECTOR3 begin = transform.position;
+
 	transform.position += velocity;
+	VECTOR3 end = transform.position;
 }

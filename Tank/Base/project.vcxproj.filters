@@ -291,6 +291,12 @@
     <ClInclude Include="Src\Bullet.h">
       <Filter>ソース ファイル\08_PlayScene</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Barrel.h">
+      <Filter>ソース ファイル\08_PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Reticle.h">
+      <Filter>ソース ファイル\08_PlayScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Main.cpp">
@@ -396,6 +402,12 @@
       <Filter>ソース ファイル\08_PlayScene</Filter>
     </ClCompile>
     <ClCompile Include="Src\Bullet.cpp">
+      <Filter>ソース ファイル\08_PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Barrel.cpp">
+      <Filter>ソース ファイル\08_PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Reticle.cpp">
       <Filter>ソース ファイル\08_PlayScene</Filter>
     </ClCompile>
   </ItemGroup>

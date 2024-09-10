@@ -282,6 +282,7 @@
     <ClInclude Include="Libs\Imgui\imstb_rectpack.h" />
     <ClInclude Include="Libs\Imgui\imstb_textedit.h" />
     <ClInclude Include="Libs\Imgui\imstb_truetype.h" />
+    <ClInclude Include="Src\Barrel.h" />
     <ClInclude Include="Src\BBox.h" />
     <ClInclude Include="Src\Bullet.h" />
     <ClInclude Include="Src\Camera.h" />
@@ -307,6 +308,7 @@
     <ClInclude Include="Src\resource.h" />
     <ClInclude Include="Src\ResourceManager.h" />
     <ClInclude Include="Src\ResultScene.h" />
+    <ClInclude Include="Src\Reticle.h" />
     <ClInclude Include="Src\SceneBase.h" />
     <ClInclude Include="Src\SceneFactory.h" />
     <ClInclude Include="Src\SceneManager.h" />
@@ -323,6 +325,7 @@
     <ClCompile Include="Libs\Imgui\imgui_impl_dx11.cpp" />
     <ClCompile Include="Libs\Imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="Libs\Imgui\imgui_widgets.cpp" />
+    <ClCompile Include="Src\Barrel.cpp" />
     <ClCompile Include="Src\BBox.cpp" />
     <ClCompile Include="Src\Bullet.cpp" />
     <ClCompile Include="Src\Camera.cpp" />
@@ -344,6 +347,7 @@
     <ClCompile Include="Src\PlayScene.cpp" />
     <ClCompile Include="Src\ResourceManager.cpp" />
     <ClCompile Include="Src\ResultScene.cpp" />
+    <ClCompile Include="Src\Reticle.cpp" />
     <ClCompile Include="Src\SceneBase.cpp" />
     <ClCompile Include="Src\SceneFactory.cpp" />
     <ClCompile Include="Src\SceneManager.cpp" />

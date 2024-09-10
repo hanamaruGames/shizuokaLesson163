@@ -3,12 +3,20 @@
 #include "Camera.h"
 #include "Ground.h"
 #include "Tank.h"
+#include "Barrel.h"
+#include "Reticle.h"
 
 PlayScene::PlayScene()
 {
 	new Ground();
 	new Tank();
 	new Camera();
+	new Barrel(VECTOR3(20, 0, 0));
+	new Barrel(VECTOR3(30, 0, 0));
+	new Barrel(VECTOR3(40, 0, 0));
+	new Barrel(VECTOR3(50, 0, 0));
+	new Barrel(VECTOR3(60, 0, 0));
+	new Reticle();
 }
 
 PlayScene::~PlayScene()

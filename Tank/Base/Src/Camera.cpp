@@ -1,8 +1,11 @@
 #include "Camera.h"
 #include "Tank.h"
 
-static const VECTOR3 CamPos = VECTOR3(0, 5, -20);
-static const VECTOR3 LookPos = VECTOR3(0, 2, 0);
+static VECTOR3 CamPos = VECTOR3(0, 10, -20);
+static VECTOR3 LookPos = VECTOR3(0, 4, 0);
+//è„Ç©ÇÁå©ÇΩÉJÉÅÉâ
+//static VECTOR3 CamPos = VECTOR3(0, 100, -20);
+//static VECTOR3 LookPos = VECTOR3(0, 4, 20);
 
 Camera::Camera()
 {
@@ -19,7 +22,7 @@ Camera::~Camera()
 
 void Camera::Update()
 {
-	Tank* tank = ObjectManager::FindGameObject<Tank>();
+	TankTower* tank = ObjectManager::FindGameObject<TankTower>();
 	if (tank != nullptr) {
 		VECTOR3 tankPos = tank->Position(); // TankÇÃç¿ïW
 		VECTOR3 tankRot = tank->Rotation(); // TankÇÃâÒì]
@@ -39,4 +42,14 @@ void Camera::Update()
 
 void Camera::Draw()
 {
+	ImGui::Begin("CamPos");
+	ImGui::InputFloat("X", &CamPos.x);
+	ImGui::InputFloat("Y", &CamPos.y);
+	ImGui::InputFloat("Z", &CamPos.z);
+	ImGui::End();
+	ImGui::Begin("LookPos");
+	ImGui::InputFloat("X", &LookPos.x);
+	ImGui::InputFloat("Y", &LookPos.y);
+	ImGui::InputFloat("Z", &LookPos.z);
+	ImGui::End();
 }
