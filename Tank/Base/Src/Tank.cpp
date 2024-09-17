@@ -1,5 +1,6 @@
 #include "Tank.h"
 #include "Bullet.h"
+#include "Reticle.h"
 
 Tank::Tank()
 {
@@ -74,25 +75,32 @@ TankGun::~TankGun()
 
 void TankGun::Update()
 {
+	Reticle* reticle = ObjectManager::FindGameObject<Reticle>();
+
 	auto di = GameDevice()->m_pDI;
 	if (di->CheckKey(KD_DAT, DIK_UP)) {
 		transform.rotation.x -= 3.0f * DegToRad; // 親に対しての回転量
 		if (transform.rotation.x < -90.0f * DegToRad) {
 			transform.rotation.x = -90.0f * DegToRad;
 		}
+		VECTOR3 pos = reticle->Position();
+		pos.y -= 5.0f;
+		reticle->SetPosition(pos);
 	}
 	if (di->CheckKey(KD_DAT, DIK_DOWN)) {
 		transform.rotation.x += 3.0f * DegToRad; // 親に対しての回転量
 		if (transform.rotation.x > 10.0f * DegToRad) {
 			transform.rotation.x = 10.0f * DegToRad;
 		}
+		VECTOR3 pos = reticle->Position();
+		pos.y += 5.0f;
+		reticle->SetPosition(pos);
 	}
 	if (di->CheckKey(KD_TRG, DIK_SPACE)) {
-		VECTOR3 shotPos = VECTOR3(0, 0, 3) * transform.matrix();
-		// 射出口の位置に、自分の行列を掛けた場所
-		VECTOR3 shotDir = VECTOR3(0, 0, 1); // 長さを１にする
-		// 射出口の向きに、自分の行列を掛ける（ただしw=0）向き
-		shotDir = XMVector3TransformNormal(shotDir, transform.matrix());
-		new Bullet(shotPos, shotDir * 0.5f);
+		VECTOR3 shotPos = GameDevice()->m_vEyePt;
+
+		VECTOR3 dir = reticle->GetWorldPos() - shotPos;
+		VECTOR3 shotDir = XMVector3Normalize(dir);
+		new Bullet(shotPos+shotDir*4.0f, shotDir * 2.0f);
 	}
 }
