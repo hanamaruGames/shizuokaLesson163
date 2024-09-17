@@ -72,7 +72,7 @@ void Particle::Draw()
 	for (auto c : chips) {
 		//ビルボードの、視点を向くワールドトランスフォームを求める
 		// 描画中心位置の移動をする
-		MATRIX4X4 off = XMMatrixTranslation(c.offset.x, c.offset.y, 0);
+		MATRIX4X4 off = XMMatrixTranslation(-c.offset.x, c.offset.y, -c.offset.z);
 
 		//シェーダーのコンスタントバッファーに各種データを渡す
 		D3D11_MAPPED_SUBRESOURCE pData;
@@ -83,7 +83,7 @@ void Particle::Draw()
 		{
 			MATRIX4X4 scale = XMMatrixScaling(c.scale, c.scale, c.scale);
 			//ワールド、カメラ、射影行列、テクスチャーオフセットを渡す
-			cb.mWVP = XMMatrixTranspose(off * scale * world * GameDevice()->m_mView * GameDevice()->m_mProj);
+			cb.mWVP = XMMatrixTranspose(scale * off * world * GameDevice()->m_mView * GameDevice()->m_mProj);
 
 			cb.vUVOffset.x = c.uv.x;
 			cb.vUVOffset.y = c.uv.y;

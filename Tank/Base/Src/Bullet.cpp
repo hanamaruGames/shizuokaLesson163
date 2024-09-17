@@ -25,7 +25,7 @@ void Bullet::Update()
 		if (destroyCount == 0) {
 			DestroyMe();
 			if (hitBarrel != nullptr) {
-				hitBarrel->DestroyMe();
+				hitBarrel->OnCollision(this);
 			}
 		}
 		return;

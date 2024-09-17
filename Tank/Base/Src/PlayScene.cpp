@@ -5,6 +5,7 @@
 #include "Tank.h"
 #include "Barrel.h"
 #include "Reticle.h"
+#include "FireSplash.h"
 
 PlayScene::PlayScene()
 {
@@ -17,6 +18,7 @@ PlayScene::PlayScene()
 	new Barrel(VECTOR3(50, 0, 0));
 	new Barrel(VECTOR3(60, 0, 0));
 	new Reticle();
+	new FireSplash();
 }
 
 PlayScene::~PlayScene()

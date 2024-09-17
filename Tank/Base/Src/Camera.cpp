@@ -37,6 +37,7 @@ void Camera::Update()
 			transform.position, // カメラ座標
 			lookPosition,  // 注視点
 			VECTOR3(0, 1, 0));  // 上を表すベクトル（固定）
+		GameDevice()->m_vEyePt = transform.position; // カメラの座標
 	}
 }
 

@@ -7,4 +7,6 @@ public:
 	~Barrel();
 //	void Update() override; // 動かないので、要らない
 //	void Draw() override; // Object3DのDrawを使うので、要らない
+
+	void OnCollision(Object3D* other); // 当たった時に呼んでもらう
 };

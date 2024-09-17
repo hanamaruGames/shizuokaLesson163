@@ -1,4 +1,5 @@
 #include "Barrel.h"
+#include "Explode.h"
 
 Barrel::Barrel(VECTOR3 pos)
 {
@@ -14,4 +15,11 @@ Barrel::Barrel(VECTOR3 pos)
 
 Barrel::~Barrel()
 {
+}
+
+void Barrel::OnCollision(Object3D* other)
+{
+	Explode* ex = new Explode();
+	ex->SetPosition(transform.position);
+	DestroyMe();
 }
