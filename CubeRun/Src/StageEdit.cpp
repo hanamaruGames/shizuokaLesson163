@@ -24,6 +24,8 @@ StageEdit::StageEdit()
 	}
 	map[1][1] = 1;
 	map[2][3] = 1;
+	cursorX = 0;
+	cursorZ = 0;
 
 	GameDevice()->m_mView = XMMatrixLookAtLH(
 		VECTOR3(0, 20, -10), // ƒJƒƒ‰ˆÊ’u
@@ -37,6 +39,31 @@ StageEdit::~StageEdit()
 
 void StageEdit::Update()
 {
+	CDirectInput* di = GameDevice()->m_pDI;
+	if (di->CheckKey(KD_TRG, DIK_D)) {
+		cursorX = min(cursorX + 1, map[cursorZ].size() - 1);
+	}
+	if (di->CheckKey(KD_TRG, DIK_A)) {
+		cursorX = max(cursorX - 1, 0);
+	}
+	if (di->CheckKey(KD_TRG, DIK_S)) {
+		cursorZ++;
+		if (cursorZ >= map.size()) {
+			cursorZ = map.size() - 1;
+		}
+	}
+	if (di->CheckKey(KD_TRG, DIK_W)) {
+		cursorZ--;
+		if (cursorZ < 0) {
+			cursorZ = 0;
+		}
+	}
+	if (di->CheckKey(KD_TRG, DIK_SPACE)) {
+		map[cursorZ][cursorX]++;
+		if (map[cursorZ][cursorX] >= meshes.size()) {
+			map[cursorZ][cursorX] = 0;
+		}
+	}
 }
 
 void StageEdit::Draw()
@@ -47,7 +74,7 @@ void StageEdit::Draw()
 			meshes[chip]->Render(XMMatrixTranslation(x, 0, -z));
 		}
 	}
-	DrawBox(VECTOR3(3, 0, -2), 0xff0000ff/*ABGR*/);
+	DrawBox(VECTOR3(cursorX, 0, -cursorZ), 0xff0000ff/*ABGR*/);
 }
 
 void StageEdit::DrawBox(VECTOR3 pos, DWORD color)
