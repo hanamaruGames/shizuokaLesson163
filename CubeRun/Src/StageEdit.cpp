@@ -1,11 +1,5 @@
 #include "StageEdit.h"
 
-int map[3][4] = {
-	{ 0, 0, 0, 0},
-	{ 0, 1, 0, 0},
-	{ 0, 0, 0, 1},
-};
-
 std::vector<std::string> files = {
 	"wallEarth01",
 	"boxQuestion",
@@ -19,6 +13,17 @@ StageEdit::StageEdit()
 		m->Load((folder+f+".mesh").c_str()); // +で文字列をつなげることができる
 		meshes.push_back(m);
 	}
+
+	// 最初のmapデータを作る
+	for (int z = 0; z < 3; z++) {
+		vector<int> m;
+		for (int x = 0; x < 4; x++) {
+			m.push_back(0);
+		}
+		map.push_back(m);
+	}
+	map[1][1] = 1;
+	map[2][3] = 1;
 
 	GameDevice()->m_mView = XMMatrixLookAtLH(
 		VECTOR3(0, 20, -10), // カメラ位置
