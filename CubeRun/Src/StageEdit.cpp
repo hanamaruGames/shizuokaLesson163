@@ -1,4 +1,6 @@
 #include "StageEdit.h"
+#include <fstream>
+#include "CsvReader.h"
 
 std::vector<std::string> files = {
 	"wallEarth01",
@@ -64,6 +66,13 @@ void StageEdit::Update()
 			map[cursorZ][cursorX] = 0;
 		}
 	}
+
+	if (di->CheckKey(KD_TRG, DIK_O)) {
+		Save();
+	}
+	if (di->CheckKey(KD_TRG, DIK_I)) {
+		Load();
+	}
 }
 
 void StageEdit::Draw()
@@ -76,6 +85,41 @@ void StageEdit::Draw()
 	}
 	DrawBox(VECTOR3(cursorX, 0, -cursorZ), 0xff0000ff/*ABGR*/);
 }
+
+void StageEdit::Save()
+{
+	// ファイルを開く
+	std::ofstream ofs("data/Stage2.csv"); // 引数にファイル名
+	// データを書く
+	for (int z = 0; z < map.size(); z++) {
+		int xs = map[z].size();
+		for (int x = 0; x < xs; x++) {
+			ofs << map[z][x];
+			if (x < xs - 1) {
+				ofs << ",";
+			}
+		}
+		ofs << std::endl;
+	}
+	// ファイルを閉じる
+	ofs.close();
+}
+
+void StageEdit::Load()
+{
+	CsvReader* csv = new CsvReader("data/Stage2.csv");
+	map.clear();
+	for (int z = 0; z < csv->GetLines(); z++) {
+		std::vector<int> m;
+		for (int x = 0; x < csv->GetColumns(z); x++) {
+			int d = csv->GetInt(z, x);
+			m.push_back(d);
+		}
+		map.push_back(m);
+	}
+	delete csv;
+}
+
 
 void StageEdit::DrawBox(VECTOR3 pos, DWORD color)
 {
