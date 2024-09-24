@@ -3,6 +3,7 @@
 #include <assert.h>
 #include "TitleScene.h"
 #include "PlayScene.h"
+#include "EditScene.h"
 
 SceneBase* SceneFactory::CreateFirst()
 {
@@ -17,6 +18,9 @@ SceneBase * SceneFactory::Create(const std::string & name)
 	}
 	else if (name == "PlayScene") {
 		return new PlayScene();
+	}
+	else if (name == "EditScene") {
+		return new EditScene();
 	}
 	assert(false);
 	return nullptr;

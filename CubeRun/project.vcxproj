@@ -290,6 +290,7 @@
     <ClInclude Include="Src\DInput.h" />
     <ClInclude Include="Src\Direct3D.h" />
     <ClInclude Include="Src\Displace.h" />
+    <ClInclude Include="Src\EditScene.h" />
     <ClInclude Include="Src\FbxMesh.h" />
     <ClInclude Include="Src\GameMain.h" />
     <ClInclude Include="Src\GameObject.h" />
@@ -310,6 +311,7 @@
     <ClInclude Include="Src\Shader.h" />
     <ClInclude Include="Src\Sprite3D.h" />
     <ClInclude Include="Src\StageData.h" />
+    <ClInclude Include="Src\StageEdit.h" />
     <ClInclude Include="Src\TitleScene.h" />
     <ClInclude Include="Src\XAudio.h" />
   </ItemGroup>
@@ -327,6 +329,7 @@
     <ClCompile Include="Src\DInput.cpp" />
     <ClCompile Include="Src\Direct3D.cpp" />
     <ClCompile Include="Src\Displace.cpp" />
+    <ClCompile Include="Src\EditScene.cpp" />
     <ClCompile Include="Src\FbxMesh.cpp" />
     <ClCompile Include="Src\GameMain.cpp" />
     <ClCompile Include="Src\Main.cpp" />
@@ -344,6 +347,7 @@
     <ClCompile Include="Src\Shader.cpp" />
     <ClCompile Include="Src\Sprite3D.cpp" />
     <ClCompile Include="Src\StageData.cpp" />
+    <ClCompile Include="Src\StageEdit.cpp" />
     <ClCompile Include="Src\TitleScene.cpp" />
     <ClCompile Include="Src\XAudio.cpp" />
   </ItemGroup>
