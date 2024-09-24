@@ -13,4 +13,5 @@ public:
 private:
 	vector<CFbxMesh*> meshes; // 可変の配列
 	vector<vector<int>> map; // マップデータの二次元配列
+	void DrawBox(VECTOR3 pos, DWORD color);
 };
