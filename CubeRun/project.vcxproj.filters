@@ -279,14 +279,20 @@
     <ClInclude Include="Src\Animator.h">
       <Filter>ソース ファイル\02_ゲームライブラリ</Filter>
     </ClInclude>
-    <ClInclude Include="Src\StageData.h">
-      <Filter>ソース ファイル\08_PlayScene</Filter>
-    </ClInclude>
     <ClInclude Include="Src\EditScene.h">
       <Filter>ソース ファイル\09_EditScene</Filter>
     </ClInclude>
     <ClInclude Include="Src\StageEdit.h">
       <Filter>ソース ファイル\09_EditScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Stage.h">
+      <Filter>ソース ファイル\08_PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\BlockFileName.h">
+      <Filter>ソース ファイル\08_PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Player.h">
+      <Filter>ソース ファイル\08_PlayScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -383,14 +389,17 @@
     <ClCompile Include="Src\Animator.cpp">
       <Filter>ソース ファイル\02_ゲームライブラリ</Filter>
     </ClCompile>
-    <ClCompile Include="Src\StageData.cpp">
-      <Filter>ソース ファイル\08_PlayScene</Filter>
-    </ClCompile>
     <ClCompile Include="Src\EditScene.cpp">
       <Filter>ソース ファイル\09_EditScene</Filter>
     </ClCompile>
     <ClCompile Include="Src\StageEdit.cpp">
       <Filter>ソース ファイル\09_EditScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Stage.cpp">
+      <Filter>ソース ファイル\08_PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Player.cpp">
+      <Filter>ソース ファイル\08_PlayScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

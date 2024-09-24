@@ -10,8 +10,8 @@ public:
 	~StageEdit();
 	void Update() override;
 	void Draw() override;
-	void Save();
-	void Load();
+	void Save(int n);
+	void Load(int n);
 private:
 	vector<CFbxMesh*> meshes; // 可変の配列
 	vector<vector<int>> map; // マップデータの二次元配列
@@ -24,4 +24,5 @@ private:
 	//IVECTOR3 cursor;
 
 	int cursorX, cursorZ;
+	int stageNumber;
 };

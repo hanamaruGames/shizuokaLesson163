@@ -284,6 +284,7 @@
     <ClInclude Include="Libs\Imgui\imstb_truetype.h" />
     <ClInclude Include="Src\Animator.h" />
     <ClInclude Include="Src\BBox.h" />
+    <ClInclude Include="Src\BlockFileName.h" />
     <ClInclude Include="Src\CapsuleCollider.h" />
     <ClInclude Include="Src\Collision.h" />
     <ClInclude Include="Src\CsvReader.h" />
@@ -302,6 +303,7 @@
     <ClInclude Include="Src\MyMath.h" />
     <ClInclude Include="Src\Object3D.h" />
     <ClInclude Include="Src\ObjectManager.h" />
+    <ClInclude Include="Src\Player.h" />
     <ClInclude Include="Src\PlayScene.h" />
     <ClInclude Include="Src\resource.h" />
     <ClInclude Include="Src\ResourceManager.h" />
@@ -310,7 +312,7 @@
     <ClInclude Include="Src\SceneManager.h" />
     <ClInclude Include="Src\Shader.h" />
     <ClInclude Include="Src\Sprite3D.h" />
-    <ClInclude Include="Src\StageData.h" />
+    <ClInclude Include="Src\Stage.h" />
     <ClInclude Include="Src\StageEdit.h" />
     <ClInclude Include="Src\TitleScene.h" />
     <ClInclude Include="Src\XAudio.h" />
@@ -339,6 +341,7 @@
     <ClCompile Include="Src\MyMath.cpp" />
     <ClCompile Include="Src\Object3D.cpp" />
     <ClCompile Include="Src\ObjectManager.cpp" />
+    <ClCompile Include="Src\Player.cpp" />
     <ClCompile Include="Src\PlayScene.cpp" />
     <ClCompile Include="Src\ResourceManager.cpp" />
     <ClCompile Include="Src\SceneBase.cpp" />
@@ -346,7 +349,7 @@
     <ClCompile Include="Src\SceneManager.cpp" />
     <ClCompile Include="Src\Shader.cpp" />
     <ClCompile Include="Src\Sprite3D.cpp" />
-    <ClCompile Include="Src\StageData.cpp" />
+    <ClCompile Include="Src\Stage.cpp" />
     <ClCompile Include="Src\StageEdit.cpp" />
     <ClCompile Include="Src\TitleScene.cpp" />
     <ClCompile Include="Src\XAudio.cpp" />

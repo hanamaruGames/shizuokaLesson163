@@ -1,7 +1,11 @@
 #include "PlayScene.h"
+#include "Stage.h"
+#include "Player.h"
 
 PlayScene::PlayScene()
 {
+	new Stage(2);
+	new Player();
 }
 
 PlayScene::~PlayScene()

@@ -1,15 +1,12 @@
 #include "StageEdit.h"
 #include <fstream>
 #include "CsvReader.h"
-
-std::vector<std::string> files = {
-	"wallEarth01",
-	"boxQuestion",
-};
+#include "BlockFileName.h"
 
 StageEdit::StageEdit()
 {
-	for (std::string& f : files) {
+	stageNumber = 2;
+	for (const std::string& f : files) {
 		CFbxMesh* m = new CFbxMesh();
 		std::string folder = "data/models/"; // 一旦C++の文字列にする
 		m->Load((folder+f+".mesh").c_str()); // +で文字列をつなげることができる
@@ -63,16 +60,31 @@ void StageEdit::Update()
 	if (di->CheckKey(KD_TRG, DIK_SPACE)) {
 		map[cursorZ][cursorX]++;
 		if (map[cursorZ][cursorX] >= meshes.size()) {
-			map[cursorZ][cursorX] = 0;
+			map[cursorZ][cursorX] = -1;
 		}
 	}
 
-	if (di->CheckKey(KD_TRG, DIK_O)) {
-		Save();
+//	if (di->CheckKey(KD_TRG, DIK_O)) {
+//		Save();
+//	}
+//	if (di->CheckKey(KD_TRG, DIK_I)) {
+//		Load();
+//	}
+
+	ImGui::Begin("MENU");
+	ImGui::InputInt("Stage", &stageNumber);
+	if (ImGui::Button("SAVE")) {
+		Save(stageNumber);
 	}
-	if (di->CheckKey(KD_TRG, DIK_I)) {
-		Load();
+	if (ImGui::Button("LOAD")) {
+		Load(stageNumber);
 	}
+	ImGui::End();
+
+	ImGui::Begin("CURSOR");
+	ImGui::InputInt("X", &cursorX);
+	ImGui::InputInt("Z", &cursorZ);
+	ImGui::End();
 }
 
 void StageEdit::Draw()
@@ -80,16 +92,20 @@ void StageEdit::Draw()
 	for (int z = 0; z < map.size(); z++) {
 		for (int x = 0; x < map[z].size(); x++) {
 			int chip = map[z][x];
-			meshes[chip]->Render(XMMatrixTranslation(x, 0, -z));
+			if (chip >= 0) { // 負の時は穴
+				meshes[chip]->Render(XMMatrixTranslation(x, 0, -z));
+			}
 		}
 	}
 	DrawBox(VECTOR3(cursorX, 0, -cursorZ), 0xff0000ff/*ABGR*/);
 }
 
-void StageEdit::Save()
+void StageEdit::Save(int n)
 {
+	char name[64];
+	sprintf_s<64>(name, "data/Stage%02d.csv", n);
 	// ファイルを開く
-	std::ofstream ofs("data/Stage2.csv"); // 引数にファイル名
+	std::ofstream ofs(name); // 引数にファイル名
 	// データを書く
 	for (int z = 0; z < map.size(); z++) {
 		int xs = map[z].size();
@@ -105,9 +121,12 @@ void StageEdit::Save()
 	ofs.close();
 }
 
-void StageEdit::Load()
+void StageEdit::Load(int n)
 {
-	CsvReader* csv = new CsvReader("data/Stage2.csv");
+	char name[64];
+	sprintf_s<64>(name, "data/Stage%02d.csv", n);
+
+	CsvReader* csv = new CsvReader(name);
 	map.clear();
 	for (int z = 0; z < csv->GetLines(); z++) {
 		std::vector<int> m;
