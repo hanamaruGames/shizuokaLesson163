@@ -59,7 +59,7 @@ void Stage::Load(int n)
 
 bool Stage::IsLandBlock(VECTOR3 pos)
 {
-	int chipZ = 0/*pos.z ‚©‚ç‹‚ß‚é*/;
+	int chipZ = (int)(-pos.z + 0.5f);
 	int chipX = (int)(pos.x+0.5f);
 
 	ImGui::Begin("CHIP");
@@ -71,6 +71,9 @@ bool Stage::IsLandBlock(VECTOR3 pos)
 		return false;
 	}
 	if (csv == nullptr) {
+		return false;
+	}
+	if (chipZ >= csv->GetLines()) {
 		return false;
 	}
 	if (chipX >= csv->GetColumns(chipZ)) {
