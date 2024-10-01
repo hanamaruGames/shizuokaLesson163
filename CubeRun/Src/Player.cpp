@@ -5,6 +5,9 @@ Player::Player()
 	mesh = new CFbxMesh();
 	mesh->Load("data/models/char01.mesh");
 	transform.position = VECTOR3(0, 1, 0);
+
+	jumping = false;
+	velocityY = 0.0f;
 }
 
 Player::~Player()
@@ -28,16 +31,27 @@ void Player::Update()
 		transform.position += VECTOR3(0.1f, 0, 0);
 	}
 
-	// 地面が見つからなければ落ちる
+	if (!jumping) {
+		if (di->CheckKey(KD_TRG, DIK_SPACE)) {
+			jumping = true;
+			velocityY = 0.1f; // 上への移動量
+		}
+	}
+	transform.position.y += velocityY;
 	Stage* st = ObjectManager::FindGameObject<Stage>();
-	if (st->IsLandBlock(transform.position) == false) {
-		transform.position += VECTOR3(0, -0.1f, 0);
+	if (st->IsLandBlock(transform.position)) {
+		jumping = false;
+		velocityY = 0.0f;
+	} else {
+		velocityY -= 0.005f; // 重力加速度
 	}
 
 	// プレイヤーを追いかけるカメラにする
+	VECTOR3 p = transform.position;
+	p.y = 1.0f;//地面の高さ
 	GameDevice()->m_mView = XMMatrixLookAtLH(
-		transform.position + VECTOR3(0, 3.0f, -5.0f), // カメラ位置
-		transform.position + VECTOR3(0, 1.5f, 0), // 注視点
+		p + VECTOR3(0, 3.0f, -5.0f), // カメラ位置
+		p + VECTOR3(0, 1.5f, 0), // 注視点
 		VECTOR3(0, 1.0f, 1.0f)); // 上ベクトル
 }
 

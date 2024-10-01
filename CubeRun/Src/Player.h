@@ -8,4 +8,7 @@ public:
 	~Player();
 	void Update() override;
 	void Draw() override;
+private:
+	bool jumping; // ジャンプしている(２段ジャンプするには、int型にして、0,1,2が入る）
+	float velocityY; // Y方向の移動量
 };

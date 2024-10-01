@@ -12,9 +12,11 @@ public:
 	void Draw() override;
 	void Save(int n);
 	void Load(int n);
+	void Create(int xsize, int ysize, int zsize);
+
 private:
 	vector<CFbxMesh*> meshes; // 可変の配列
-	vector<vector<int>> map; // マップデータの二次元配列
+	vector<vector<vector<int>>> map; // マップデータの二次元配列
 	void DrawBox(VECTOR3 pos, DWORD color);
 	//struct IVECTOR3 {
 	//	int x, y, z;
@@ -23,6 +25,10 @@ private:
 	//};
 	//IVECTOR3 cursor;
 
-	int cursorX, cursorZ;
+	int cursorX, cursorY, cursorZ;
 	int stageNumber;
+
+	int xsize;
+	int ysize;
+	int zsize;
 };

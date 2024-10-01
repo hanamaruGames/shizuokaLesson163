@@ -29,11 +29,13 @@ void Stage::Update()
 
 void Stage::Draw()
 {
-	for (int z = 0; z < map.size(); z++) {
-		for (int x = 0; x < map[z].size(); x++) {
-			int chip = map[z][x];
-			if (chip >= 0) { // •‰‚ÌŽž‚ÍŒŠ
-				meshes[chip]->Render(XMMatrixTranslation(x, 0, -z));
+	for (int y = 0; y < map.size(); y++) {
+		for (int z = 0; z < map[y].size(); z++) {
+			for (int x = 0; x < map[y][z].size(); x++) {
+				int chip = map[y][z][x];
+				if (chip >= 0) { // •‰‚ÌŽž‚ÍŒŠ
+					meshes[chip]->Render(XMMatrixTranslation(x, y, -z));
+				}
 			}
 		}
 	}
@@ -47,39 +49,57 @@ void Stage::Load(int n)
 	SAFE_DELETE(csv);
 	csv = new CsvReader(name);
 	map.clear();
-	for (int z = 0; z < csv->GetLines(); z++) {
-		std::vector<int> m;
-		for (int x = 0; x < csv->GetColumns(z); x++) {
-			int d = csv->GetInt(z, x);
-			m.push_back(d);
+
+	std::vector<std::vector<int>> m2;
+	m2.clear();
+	for (int line = 0; line < csv->GetLines(); line++) {
+		if (csv->GetString(line, 0) == "") {
+			map.push_back(m2);
+			m2.clear();
 		}
-		map.push_back(m);
+		else {
+			std::vector<int> m;
+			for (int x = 0; x < csv->GetColumns(line); x++) {
+				int d = csv->GetInt(line, x);
+				m.push_back(d);
+			}
+			m2.push_back(m);
+		}
+	}
+	if (m2.size() > 0) {
+		map.push_back(m2);
 	}
 }
 
 bool Stage::IsLandBlock(VECTOR3 pos)
 {
-	int chipZ = (int)(-pos.z + 0.5f);
-	int chipX = (int)(pos.x+0.5f);
-
-	ImGui::Begin("CHIP");
-	ImGui::InputFloat("pos.z", &pos.z);
-	ImGui::InputInt("chipZ", &chipZ);
-	ImGui::End();
-
-	if (pos.x + 0.5f < 0.0f) {
-		return false;
-	}
 	if (csv == nullptr) {
 		return false;
 	}
-	if (chipZ >= csv->GetLines()) {
+	if (-pos.z + 0.5f < 0.0f) {
 		return false;
 	}
-	if (chipX >= csv->GetColumns(chipZ)) {
+	int chipZ = (int)(-pos.z + 0.5f);
+	if (pos.x + 0.5f < 0.0f) {
 		return false;
 	}
-	if (csv->GetInt(chipZ, chipX) >= 0) {
+	int chipX = (int)(pos.x+0.5f);
+
+	if (pos.y < 0.0f) {
+		return false;
+	}
+	int chipY = (int)pos.y;
+	if (chipY >= map.size()) {
+		return false;
+	}
+
+	if (chipZ >= map[chipY].size()) {
+		return false;
+	}
+	if (chipX >= map[chipY][chipZ].size()) {
+		return false;
+	}
+	if (map[chipY][chipZ][chipX]>=0) {
 		return true;
 	}
 	return false;
