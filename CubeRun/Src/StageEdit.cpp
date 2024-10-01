@@ -131,7 +131,7 @@ void StageEdit::Save(int n)
 	std::ofstream ofs(name); // 引数にファイル名
 	// データを書く
 	for (int y = 0; y < map.size(); y++) {
-		for (int z = 0; z < map.size(); z++) {
+		for (int z = 0; z < map[y].size(); z++) {
 			int xs = map[y][z].size();
 			for (int x = 0; x < xs; x++) {
 				ofs << map[y][z][x];
