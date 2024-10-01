@@ -1,6 +1,7 @@
 #pragma once
 // Stage.h
 #include "Object3D.h"
+#include "CsvReader.h"
 
 using namespace std;
 
@@ -15,4 +16,5 @@ public:
 private:
 	vector<CFbxMesh*> meshes; // 可変の配列
 	vector<vector<int>> map; // マップデータの二次元配列
+	CsvReader* csv;
 };

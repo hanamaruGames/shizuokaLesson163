@@ -12,11 +12,15 @@ Stage::Stage(int stageNumber)
 	}
 
 	Load(stageNumber);
-
 }
 
 Stage::~Stage()
 {
+//	if (csv != nullptr) {
+//		delete csv;
+//		csv = nullptr;
+//	}
+	SAFE_DELETE(csv);
 }
 
 void Stage::Update()
@@ -40,7 +44,8 @@ void Stage::Load(int n)
 	char name[64];
 	sprintf_s<64>(name, "data/Stage%02d.csv", n);
 
-	CsvReader* csv = new CsvReader(name);
+	SAFE_DELETE(csv);
+	csv = new CsvReader(name);
 	map.clear();
 	for (int z = 0; z < csv->GetLines(); z++) {
 		std::vector<int> m;
@@ -50,10 +55,29 @@ void Stage::Load(int n)
 		}
 		map.push_back(m);
 	}
-	delete csv;
 }
 
 bool Stage::IsLandBlock(VECTOR3 pos)
 {
+	int chipZ = 0/*pos.z Ç©ÇÁãÅÇﬂÇÈ*/;
+	int chipX = (int)(pos.x+0.5f);
+
+	ImGui::Begin("CHIP");
+	ImGui::InputFloat("pos.z", &pos.z);
+	ImGui::InputInt("chipZ", &chipZ);
+	ImGui::End();
+
+	if (pos.x + 0.5f < 0.0f) {
+		return false;
+	}
+	if (csv == nullptr) {
+		return false;
+	}
+	if (chipX >= csv->GetColumns(chipZ)) {
+		return false;
+	}
+	if (csv->GetInt(chipZ, chipX) >= 0) {
+		return true;
+	}
 	return false;
 }
