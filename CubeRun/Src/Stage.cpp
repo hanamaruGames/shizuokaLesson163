@@ -1,6 +1,8 @@
 #include "Stage.h"
 #include "CsvReader.h"
 #include "BlockFileName.h"
+#include "Player.h"
+#include "Coin.h"
 
 Stage::Stage(int stageNumber)
 {
@@ -10,6 +12,8 @@ Stage::Stage(int stageNumber)
 		m->Load((folder + f + ".mesh").c_str()); // +で文字列をつなげることができる
 		meshes.push_back(m);
 	}
+	boxCollider = new MeshCollider();
+	boxCollider->MakeFromFile("data/models/boxCol.mesh");
 
 	Load(stageNumber);
 }
@@ -61,6 +65,16 @@ void Stage::Load(int n)
 			std::vector<int> m;
 			for (int x = 0; x < csv->GetColumns(line); x++) {
 				int d = csv->GetInt(line, x);
+				if (d == boxID::CHAR01) {
+					Player* p = new Player();
+					p->SetPosition(x, map.size(), -(int)m2.size());
+					d = -1;
+				}
+				else if (d == boxID::COIN) {
+					Coin* c = new Coin();
+					c->SetPosition(x, map.size(), -(int)m2.size());
+					d = -1;
+				}
 				m.push_back(d);
 			}
 			m2.push_back(m);
@@ -103,4 +117,65 @@ bool Stage::IsLandBlock(VECTOR3 pos)
 		return true;
 	}
 	return false;
+}
+
+bool Stage::HitSphere(const SphereCollider& coll, VECTOR3* out)
+{
+	VECTOR3 pushVec = VECTOR3(0, 0, 0);
+	VECTOR3 pushVecCorner = VECTOR3(0, 0, 0);
+	bool pushed = false;
+	bool pushedCorner = false;
+	for (int y = 0; y < map.size(); y++) {
+		for (int z = 0; z < map[y].size(); z++) {
+			for (int x = 0; x < map[y][z].size(); x++) {
+				if (map[y][z][x] >= 0) {
+					MATRIX4X4 mat = XMMatrixTranslation(x, y, -z);
+					std::list<MeshCollider::CollInfo> meshes = boxCollider->CheckCollisionSphereList(mat, coll.center, coll.radius);
+					for (const MeshCollider::CollInfo& m : meshes) {
+						VECTOR3 move = coll.center - m.hitPosition;
+						VECTOR3 v = XMVector3Cross(move, m.normal);
+						if (v.Length() == 0.0f) {
+							float len = move.Length(); // 当たった点から中心への距離
+							move = move * ((coll.radius - len) / len);
+							VECTOR3 push = m.normal * Dot(move, m.normal); // 押し返したいベクトル
+							// 今のpushVecと合成する
+							VECTOR3 pushVecNorm = XMVector3Normalize(pushVec); // 合成済みベクトルの向き
+							float dot = Dot(push, pushVecNorm);	// その成分の長さ
+//							if (dot < pushVec.Length()) {
+								pushVec += push - pushVecNorm * dot; // その成分を減らしていい
+//							}
+//							else {
+//								pushVec = push;
+//							}
+							pushedCorner = true;
+						}
+						else {
+							float len = move.Length(); // 当たった点から中心への距離
+							move = move * ((coll.radius - len) / len);
+							VECTOR3 push = m.normal * Dot(move, m.normal); // 押し返したいベクトル
+							// 今のpushVecと合成する
+							VECTOR3 pushVecNorm = XMVector3Normalize(pushVecCorner); // 合成済みベクトルの向き
+							float dot = Dot(push, pushVecNorm);	// その成分の長さ
+//							if (dot < pushVecCorner.Length()) {
+								pushVecCorner += push - pushVecNorm * dot; // その成分を減らしていい
+//							}
+//							else {
+//								pushVecCorner = push;
+//							}
+						}
+						pushed = true;
+					}
+				}
+			}
+		}
+	}
+	if (pushed && out != nullptr) {
+		if (pushedCorner > 0.0f) {
+			*out = pushVec;
+		}
+		else {
+			*out = pushVecCorner;
+		}
+	}
+	return pushed;
 }

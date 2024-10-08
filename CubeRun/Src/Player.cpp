@@ -38,12 +38,19 @@ void Player::Update()
 		}
 	}
 	transform.position.y += velocityY;
+	velocityY -= 0.005f; // 重力加速度
 	Stage* st = ObjectManager::FindGameObject<Stage>();
 	if (st->IsLandBlock(transform.position)) {
 		jumping = false;
 		velocityY = 0.0f;
-	} else {
-		velocityY -= 0.005f; // 重力加速度
+	}
+
+	SphereCollider collider;
+	collider.center = transform.position + VECTOR3(0, 0.5f, 0);
+	collider.radius = 0.5f;
+	VECTOR3 push;
+	if (st->HitSphere(collider, &push)) {
+		transform.position += push;
 	}
 
 	// プレイヤーを追いかけるカメラにする

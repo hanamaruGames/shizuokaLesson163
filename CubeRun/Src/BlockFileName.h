@@ -3,6 +3,32 @@
 #include <vector>
 #include <string>
 
+enum boxID {
+	WALL01 = 0,
+	WALL02,
+	STONE,
+	WOOD,
+	BOARD,
+	SPIKE,
+	GIFT,
+	QUESTION,
+	CHEST_A,
+	CHEST_B,
+	HEALTH,
+	POISON,
+	COIN,
+	COIN_JAM,
+	CROWN,
+	HAMMER,
+	HEART,
+	FLAG,
+	KEY,
+	CHAR01,
+	CHAR02,
+	CHAR03,
+	CHAR04,
+};
+
 static const std::vector<std::string> files = {
 	"wallEarth01",
 	"wallEarth02",

@@ -5,7 +5,7 @@
 PlayScene::PlayScene()
 {
 	new Stage(2);
-	new Player();
+//	new Player();
 }
 
 PlayScene::~PlayScene()

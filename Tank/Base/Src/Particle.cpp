@@ -25,6 +25,7 @@ void Particle::LoadTexture(std::string filename, const VECTOR2& _uv)
 	SAFE_DELETE(vertexBuffer);
 	GameDevice()->m_pD3D->CreateShaderResourceViewFromFile(filename.c_str(), &texture);
 	uvSize = _uv;
+
 	static const Info verts[] = {
 		{ VECTOR3(-0.5f, 0.5f, 0), VECTOR2(uvSize.x, 0) },
 		{ VECTOR3(-0.5f, -0.5f, 0), VECTOR2(uvSize.x, uvSize.y) },
