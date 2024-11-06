@@ -124,19 +124,23 @@ bool Stage::HitSphere(const SphereCollider& coll, VECTOR3* out)
 	VECTOR3 pushVec = VECTOR3(0, 0, 0);
 	VECTOR3 pushVecCorner = VECTOR3(0, 0, 0);
 	bool pushed = false;
-	bool pushedCorner = false;
 	for (int y = 0; y < map.size(); y++) {
 		for (int z = 0; z < map[y].size(); z++) {
 			for (int x = 0; x < map[y][z].size(); x++) {
 				if (map[y][z][x] >= 0) {
+					VECTOR3 dist = coll.center - VECTOR3(x, y, -z);
+					if (dist.LengthSquare() >= (coll.radius + 1.5f) * (coll.radius + 1.5f))
+						continue;
 					MATRIX4X4 mat = XMMatrixTranslation(x, y, -z);
 					std::list<MeshCollider::CollInfo> meshes = boxCollider->CheckCollisionSphereList(mat, coll.center, coll.radius);
 					for (const MeshCollider::CollInfo& m : meshes) {
 						VECTOR3 move = coll.center - m.hitPosition;
 						VECTOR3 v = XMVector3Cross(move, m.normal);
-						if (v.Length() == 0.0f) {
+						if (v.Length() <= 0.0001f) {
 							float len = move.Length(); // 当たった点から中心への距離
-							move = move * ((coll.radius - len) / len);
+							if (len > 0.0f) {
+								move = move * ((coll.radius - len) / len);
+							}
 							VECTOR3 push = m.normal * Dot(move, m.normal); // 押し返したいベクトル
 							// 今のpushVecと合成する
 							VECTOR3 pushVecNorm = XMVector3Normalize(pushVec); // 合成済みベクトルの向き
@@ -147,7 +151,6 @@ bool Stage::HitSphere(const SphereCollider& coll, VECTOR3* out)
 //							else {
 //								pushVec = push;
 //							}
-							pushedCorner = true;
 						}
 						else {
 							float len = move.Length(); // 当たった点から中心への距離
@@ -170,7 +173,7 @@ bool Stage::HitSphere(const SphereCollider& coll, VECTOR3* out)
 		}
 	}
 	if (pushed && out != nullptr) {
-		if (pushedCorner > 0.0f) {
+		if (pushVec.LengthSquare() > 0.0f) {
 			*out = pushVec;
 		}
 		else {

@@ -179,7 +179,7 @@ void StageEdit::Load(int n)
 void StageEdit::Create(int xsize, int ysize, int zsize)
 {
 	map.clear();
-	for (int y = 0; y < zsize; y++) {
+	for (int y = 0; y < ysize; y++) {
 		vector<vector<int>> m2;
 		for (int z = 0; z < zsize; z++) {
 			vector<int> m;
